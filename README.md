@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/scull7/empower-role.svg?branch=master)](https://travis-ci.org/scull7/empower-role)
+
 # empower-role
 Given a role map, a set of roles and a permission can the user access?
 
