@@ -1,0 +1,32 @@
+{
+  "name": "empower-role",
+  "version": "1.0.0",
+  "description": "Given a role map, a set of roles and a permission can the user access?",
+  "main": "dist/index.js",
+  "scripts": {
+    "prepublish": "coffee -o dist -c src/*.coffee",
+    "test": "mocha && ./node_modules/.bin/istanbul report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scull7/empower-role.git"
+  },
+  "keywords": [
+    "role",
+    "authorization",
+    "empower",
+    "auth"
+  ],
+  "author": "Nathan A Sculli <scull7@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scull7/empower-role/issues"
+  },
+  "homepage": "https://github.com/scull7/empower-role#readme",
+  "devDependencies": {
+    "coffee-coverage": "^0.7.0",
+    "coffee-script": "^1.10.0",
+    "istanbul": "^0.4.0",
+    "mocha": "^2.3.3"
+  }
+}
