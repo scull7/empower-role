@@ -2,9 +2,9 @@
 (function() {
   var Role, RoleMap, mapFromJson;
 
-  RoleMap = require('./map.coffee');
+  RoleMap = require('./map');
 
-  Role = require('./role.coffee');
+  Role = require('./role');
 
   mapFromJson = function(jsonMap) {
     var map, name, permMap, role, roleName, value;
