@@ -1,5 +1,5 @@
-RoleMap     = require './map.coffee'
-Role        = require './role.coffee'
+RoleMap     = require './map'
+Role        = require './role'
 
 # mapFromJson :: JSON -> RoleMap
 mapFromJson = (jsonMap) ->

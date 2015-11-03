@@ -1,10 +1,10 @@
 {
   "name": "empower-role",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Given a role map, a set of roles and a permission can the user access?",
   "main": "dist/index.js",
   "scripts": {
-    "prepublish": "coffee -o dist -c src/*.coffee",
+    "prepublish": "./node_modules/.bin/coffee -o dist -c src/*.coffee",
     "test": "mocha && ./node_modules/.bin/istanbul report"
   },
   "repository": {
