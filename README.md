@@ -30,7 +30,7 @@ A string that represents a system action or request.
 var RoleMap = require('empower-role').Map;
 var Role    = require('empower-role').Role;
 
-// Alternatively you can supply the map via constructor parameter.
+// Alternatively you can supply JSON via the RoleMap.fromJson function.
 var map     = RoleMap()
   .addRole( Role('role-name')
     .addPermission('permission-name'), 1)
