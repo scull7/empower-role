@@ -6,23 +6,16 @@ Role    = require '../../src/role.coffee'
 
 testMap = RoleMap()
 testMap.addRole(Role('test1')
-  .addPermission('perm:one', 1)
-  .addPermission('perm:two', 0)
-  .addPermission('perm:three', 0)
-  .addPermission('perm:four', 1)
+  .addPermission('perm:one', [ 'get' ])
+  .addPermission('perm:four', [ 'post' ])
 )
 
 testMap.addRole(Role('test2')
-  .addPermission('perm:one', 0)
-  .addPermission('perm:two', 1)
-  .addPermission('perm:three', 0)
-  .addPermission('perm:four', 0)
+  .addPermission('perm:two', [ 'get', 'post' ])
 )
 
 testMap.addRole(Role('test3')
-  .addPermission('perm:one', 1)
-  .addPermission('perm:two', 0)
-  .addPermission('perm:three', 0)
+  .addPermission('perm:one', [ 'get', 'post', 'put', 'delete'])
 )
 
 userRoles = [ 'test1', 'test2', 'test3' ]
@@ -93,28 +86,30 @@ describe 'RoleMap', ->
 
     it 'should return false if the role does not exist', ->
 
-      assert.equal (testMap.checkRolePermission 'test:perm', 'test'), false
+      allowed = testMap.checkRolePermission 'test:perm', 'get', 'test'
+      assert.equal allowed, false
 
     it 'should return true if the role exists and permission is granted',
       ->
 
-      assert.equal (testMap.checkRolePermission 'perm:one', 'test1'), true
+      allowed = testMap.checkRolePermission 'perm:one', 'get', 'test1'
+      assert.equal allowed, true
 
   describe 'check', ->
 
     it 'should return true if any role has access', ->
 
-      assert.equal (testMap.check userRoles, 'perm:two'), true
+      assert.equal (testMap.check userRoles, 'perm:two', 'get'), true
 
     it 'should return false if none of the roles are found', ->
 
-      assert.equal (testMap.check ['dne1', 'dne2'], 'perm:two'), false
+      assert.equal (testMap.check ['dne1', 'dne2'], 'perm:two', 'get'), false
 
     it 'should return true even if one of the roles doesn\'t have the perm.',
       ->
 
-      assert.equal (testMap.check userRoles, 'perm:four'), true
+      assert.equal (testMap.check userRoles, 'perm:four', 'post'), true
 
     it 'should return false if all roles have no access', ->
 
-      assert.equal (testMap.check userRoles, 'perm:three'), false
+      assert.equal (testMap.check userRoles, 'perm:three', 'get'), false

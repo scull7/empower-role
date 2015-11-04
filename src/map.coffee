@@ -24,17 +24,18 @@ class Map
   hasRole: (roleName) -> ( @map.hasOwnProperty roleName )
 
 
-  # checkRolePermission :: String -> String -> Bool
-  checkRolePermission: (permission, roleName) -> if not @hasRole roleName
-    false
-  else @map[roleName].isAllowed permission
+  # checkRolePermission :: String -> String -> String -> Bool
+  checkRolePermission: (path, method, roleName) ->
+    if not @hasRole roleName
+      false
+    else @map[roleName].isAllowed path, method
 
 
-  # check :: Array String -> String -> Bool
-  check: (roleNameList, permission) ->
+  # check :: Array String -> String -> String -> Bool
+  check: (roleNameList, permission, method) ->
 
     return roleNameList
-      .map @checkRolePermission.bind(@, permission)
+      .map @checkRolePermission.bind(@, permission, method)
       .reduce (acc, cur) -> (acc or cur)
 
 

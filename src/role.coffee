@@ -1,3 +1,4 @@
+Permission  = require './permission'
 
 class Role
 
@@ -9,16 +10,19 @@ class Role
   # getName :: String
   getName: -> @name
 
-  # addPermission :: String -> Bool -> Role
-  addPermission: (name, isAllowed) ->
+  # addPermission :: String -> Array String -> Role
+  addPermission: (name, methods) ->
 
-    @permissions[name] = if isAllowed then 1 else 0
+    methods = [ methods ] if not Array.isArray methods
+    @permissions[name]  = Permission name, methods
 
     return @
 
 
-  # isAllowed :: String -> Bool
-  isAllowed: (name) -> (@permissions[name] is 1)
+  # isAllowed :: String -> String -> Bool
+  isAllowed: (name, method) -> if not (@permissions.hasOwnProperty name)
+    false
+  else (Permission.hasAccess @permissions[name], method)
 
 
 module.exports  = (name) -> new Role(name)

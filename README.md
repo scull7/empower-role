@@ -5,19 +5,21 @@
 Given a role map, a set of roles and a permission can the user access?
 
 ## Role Map
-Maps a set of roles to a set of permissions.
+Maps a set of roles to a set of permission strings and CRUD actions against
+that set _(expressed as HTTP/1.1 methods)_.
 
 ```json
 {
   "role-name": {
-    "permission-name": 1,
-    "other-permission": 0,
-    "permission:action!": 1
+    "permission-name": [ "get" ],
+    "other-permission": [ "post" ],
+    "one-more-permission": [ "get", "put", "post", "delete" ]
   },
   "other-role": {
-    "permission-name": 1,
-    "other-permission": 1,
-    "permission:action!": 0
+    "permission-name": [ "get", "post"],
+    "other-permission": [ "delete" ],
+    "permission:action": [ "get" ]
+  }
 }
 ```
 
@@ -36,22 +38,22 @@ var Role    = require('empower-role').Role;
 // Alternatively you can supply JSON via the RoleMap.fromJson function.
 var map     = RoleMap()
   .addRole( Role('role-name')
-    .addPermission('permission-name'), 1)
-    .addPermission('other-permission'), 0)
-    .addPermission('permission:action!', 1)
+    .addPermission('permission-name'), [ 'get' ])
+    .addPermission('other-permission'), [ 'get', 'post' ])
+    .addPermission('permission:action', [ 'get', 'put', 'post', 'delete' ])
   )
   .addRole( Role('other-role')
-    .addPermission('permission-name'), 1)
-    .addPermission('other-permission'), 1)
-    .addPermission('permission:action!', 0)
+    .addPermission('permission-name'), [ 'get', 'post' ])
+    .addPermission('other-permission'), [ 'delete' ])
+    .addPermission('permission:action', [ 'get' ])
   )
 ;
 
 var userRoles = [ 'role-name', 'other-role' ];
 
-var isAllowed1 = map.check(userRoles, 'permission-name');
-var isAllowed2 = map.check(userRoles, 'other-permission');
-var isAllowed3 = map.check(userRoles, 'permission:action!');
+var isAllowed1 = map.check(userRoles, 'permission-name', 'get');
+var isAllowed2 = map.check(userRoles, 'other-permission', [ 'delete' ]);
+var isAllowed3 = map.check(userRoles, 'permission:action!', [ 'put' ]);
 
 // will print "true, true, true"
 // the most permissive result is always returned.

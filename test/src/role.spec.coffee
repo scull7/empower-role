@@ -23,11 +23,11 @@ describe 'Role', ->
     it 'should add a permission to the permission map', ->
 
       role  = Role 'test'
-      role.addPermission 'test', 1
-        .addPermission 'test2', 0
+      role.addPermission '/test', [ 'get', 'post' ]
+        .addPermission '/test2', 'get'
 
-      assert.equal (role.isAllowed 'test'), true
-      assert.equal (role.isAllowed 'test2'), false
+      assert.equal (role.isAllowed '/test', 'post'), true
+      assert.equal (role.isAllowed '/test2', 'post'), false
 
   describe 'isAllowed', ->
 
