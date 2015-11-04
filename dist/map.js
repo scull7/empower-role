@@ -22,16 +22,16 @@
       return this.map.hasOwnProperty(roleName);
     };
 
-    Map.prototype.checkRolePermission = function(permission, roleName) {
+    Map.prototype.checkRolePermission = function(path, method, roleName) {
       if (!this.hasRole(roleName)) {
         return false;
       } else {
-        return this.map[roleName].isAllowed(permission);
+        return this.map[roleName].isAllowed(path, method);
       }
     };
 
-    Map.prototype.check = function(roleNameList, permission) {
-      return roleNameList.map(this.checkRolePermission.bind(this, permission)).reduce(function(acc, cur) {
+    Map.prototype.check = function(roleNameList, permission, method) {
+      return roleNameList.map(this.checkRolePermission.bind(this, permission, method)).reduce(function(acc, cur) {
         return acc || cur;
       });
     };
