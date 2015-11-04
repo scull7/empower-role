@@ -2,7 +2,7 @@
 assert      = require 'assert'
 Permission  = require '../../src/permission'
 
-describe.only 'Permission', ->
+describe 'Permission', ->
 
   it 'should return a Permission tuple', ->
 

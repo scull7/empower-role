@@ -1,6 +1,6 @@
 {
   "name": "empower-role",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Given a role map, a set of roles and a permission can the user access?",
   "main": "dist/index.js",
   "scripts": {
