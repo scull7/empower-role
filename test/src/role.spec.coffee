@@ -35,3 +35,11 @@ describe 'Role', ->
 
       role  = Role 'test'
       assert.equal (role.isAllowed 'dne'), false
+
+    it 'should return true for a "*" permission', ->
+
+      role  = Role 'test'
+      role.addPermission '*', [ 'get', 'post', 'put', 'delete' ]
+      assert.equal (role.isAllowed '/test', 'get'), true
+
+
