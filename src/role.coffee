@@ -20,9 +20,13 @@ class Role
 
 
   # isAllowed :: String -> String -> Bool
-  isAllowed: (name, method) -> if not (@permissions.hasOwnProperty name)
-    false
-  else (Permission.hasAccess @permissions[name], method)
+  isAllowed: (name, method) -> 
+    if not (@permissions.hasOwnProperty name)
+      if (@permissions.hasOwnProperty '*')
+        (Permission.hasAccess @permissions['*'], method)
+      else
+        false
+    else (Permission.hasAccess @permissions[name], method)
 
 
 module.exports  = (name) -> new Role(name)
