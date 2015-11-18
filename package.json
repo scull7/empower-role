@@ -17,7 +17,10 @@
     "empower",
     "auth"
   ],
-  "author": "Nathan A Sculli <scull7@gmail.com>",
+  "author": [
+    "Nathan A Sculli <scull7@gmail.com>",
+    "TJ Cole <thomas.jm.cole@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/scull7/empower-role/issues"
