@@ -24,7 +24,11 @@
 
     Role.prototype.isAllowed = function(name, method) {
       if (!(this.permissions.hasOwnProperty(name))) {
-        return false;
+        if (this.permissions.hasOwnProperty('*')) {
+          return Permission.hasAccess(this.permissions['*'], method);
+        } else {
+          return false;
+        }
       } else {
         return Permission.hasAccess(this.permissions[name], method);
       }
